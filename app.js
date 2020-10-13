@@ -6,7 +6,9 @@ var track = null;
 const cameraView = document.querySelector("#camera--view"),
     cameraOutput = document.querySelector("#camera--output"),
     cameraSensor = document.querySelector("#camera--sensor"),
-    cameraTrigger = document.querySelector("#camera--trigger");
+    cameraTrigger = document.querySelector("#camera--trigger"),
+    fileTrigger = document.querySelector("#file--trigger"),
+    fileInput=document.querySelector("#image-file");
 
 // Access the device camera and stream to cameraView
 function cameraStart() {
@@ -30,6 +32,22 @@ cameraTrigger.onclick = function() {
     cameraOutput.classList.add("taken");
     // track.stop();
 };
+
+fileTrigger.onclick = function() {
+  $( "#image-file" ).trigger("click");
+};
+
+$( "#image-file" ).on( "change", function(e) {
+  for(let i=0;i<e.target.files.length;i++)
+  {
+    let file = e.target.files[i];
+  
+    cameraOutput.src =URL.createObjectURL(file);
+  }
+});
+
+
+
 
 // Start the video stream when the window loads
 window.addEventListener("load", cameraStart, false);
